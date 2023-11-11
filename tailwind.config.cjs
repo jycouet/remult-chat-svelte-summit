@@ -7,7 +7,14 @@ const config = {
   },
 
   daisyui: {
-    themes: ["dracula"],
+    themes: [
+      {
+        svelte: {
+          ...require("daisyui/src/theming/themes")["[data-theme=dracula]"],
+          primary: "#FF3E00",
+        },
+      },
+    ],
   },
 
   plugins: [require("daisyui")],
