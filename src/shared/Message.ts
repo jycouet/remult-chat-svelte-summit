@@ -26,5 +26,5 @@ export class Message {
   msg: string = "";
 
   @Fields.createdAt()
-  createdAt?: Date;
+  createdAt: Date = new Date();
 }

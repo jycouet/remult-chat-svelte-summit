@@ -16,9 +16,11 @@
     // messages = await remult.repo(Message).find({ include: { who: true } });
     unSub = remult
       .repo(Message)
-      .liveQuery({ orderBy: { createdAt: "desc" }, include: { who: true } })
+      .liveQuery({ include: { who: true } })
       .subscribe((info) => {
-        messages = info.applyChanges(messages);
+        messages = info.applyChanges(messages).sort((a, b) => {
+          return a.createdAt.getTime() < b.createdAt.getTime() ? 1 : -1;
+        });
       });
   });
   onDestroy(() => {
