@@ -1,11 +1,12 @@
 <script lang="ts">
+  import { dev } from "$app/environment";
   import Buble from "$lib/Buble.svelte";
+  import { signOut } from "@auth/sveltekit/client";
   import { remult } from "remult";
   import { onDestroy, onMount } from "svelte";
   import { Message } from "../shared/Message";
-  import { signOut } from "@auth/sveltekit/client";
   import { MessageController } from "../shared/MessageController";
-  import { dev } from "$app/environment";
+  import { User } from "../shared/User";
 
   export let msg = "";
 
@@ -42,7 +43,10 @@
       const result = await MessageController.send(msg);
       // only iini dev because of SSE issue
       if (dev) {
-        messages = [...messages, result];
+        result.createdAt = new Date(result.createdAt);
+        result.who = await remult.repo(User).findId(result.whoId);
+
+        messages = [result, ...messages];
       }
       msg = "";
     } catch (error) {

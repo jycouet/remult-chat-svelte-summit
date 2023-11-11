@@ -16,7 +16,7 @@ export class Message {
   whoId: string = "";
 
   @Relations.toOne(() => User, { field: "whoId" })
-  who: string = "";
+  who!: User;
 
   @Fields.string<Message>({
     validate: (task) => {
