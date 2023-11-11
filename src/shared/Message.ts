@@ -3,10 +3,7 @@ import { User } from "./User";
 
 @Entity<Message>("messages", {
   // allowApiCrud: true,
-  allowApiInsert: Allow.authenticated,
   allowApiRead: Allow.everyone,
-  allowApiUpdate: false,
-  allowApiDelete: false,
   defaultOrderBy: {
     createdAt: "desc",
   },

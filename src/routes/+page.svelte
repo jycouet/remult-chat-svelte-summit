@@ -1,9 +1,10 @@
 <script lang="ts">
-  import { goto } from "$app/navigation";
   import Buble from "$lib/Buble.svelte";
   import { remult } from "remult";
   import { onDestroy, onMount } from "svelte";
   import { Message } from "../shared/Message";
+  import { signOut } from "@auth/sveltekit/client";
+  import { MessageController } from "../shared/MessageController";
 
   export let msg = "";
 
@@ -11,7 +12,8 @@
   let unSub: (() => void) | null = null;
 
   onMount(async () => {
-    messages = await remult.repo(Message).find();
+    // TODO Svelte issue
+    messages = await remult.repo(Message).find({ include: { who: true } });
     // unSub = remult
     //   .repo(Message)
     //   .liveQuery()
@@ -23,15 +25,19 @@
     unSub && unSub();
   });
 
+  const logout = () => {
+    signOut();
+    remult.user = undefined;
+  };
+
   const send = async () => {
     try {
-      await remult.repo(Message).insert({ msg, who: remult.user?.name });
+      await MessageController.send(msg);
       msg = "";
     } catch (error) {
       alert((error as { message: string }).message);
     }
   };
-  import { signOut } from "@auth/sveltekit/client";
 </script>
 
 <div class="flex flex-col w-full h-full">
@@ -54,7 +60,7 @@
           {remult.user.name}
         </div>
 
-        <button class="btn btn-ghost" type="button" on:click={() => signOut}
+        <button class="btn btn-ghost" type="button" on:click={() => logout()}
           >SignOut</button
         >
         <!-- <input
@@ -77,9 +83,7 @@
         placeholder="Your message?"
         bind:value={msg}
       />
-      <button
-        class="btn btn-primary"
-        disabled={!remult.repo(Message).metadata.apiInsertAllowed()}
+      <button class="btn btn-primary" disabled={remult.user ? false : true}
         >Send</button
       >
     </form>
@@ -90,7 +94,7 @@
       {#each messages as { msg, who, createdAt }}
         <Buble
           {msg}
-          {who}
+          who={who.name}
           {createdAt}
           pos={remult.user?.name === who ? "right" : "left"}
         />

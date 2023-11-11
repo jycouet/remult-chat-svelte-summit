@@ -1,0 +1,36 @@
+# all services
+services:
+  - type: web
+    name: remult-chat-svelte-summit
+    env: node
+    repo: https://github.com/jycouet/remult-chat-svelte-summit
+    region: frankfurt
+    plan: Free
+    branch: main
+    buildCommand: npm i -g pnpm@8.6.5; pnpm install --production=false; pnpm build
+    startCommand: pnpm start
+    numInstances: 1
+    #  healthCheckPath: /api/healthz
+    envVars:
+      - key: NODE_VERSION
+        value: 18.16.0
+      - key: TZ
+        value: utc
+      - key: NODE_ENV
+        value: production
+      - key: ORIGIN
+        value: https://remult-chat-svelte-summit.onrender.com
+      - key: AUTH_SECRET
+        value: something-secret-to-change-for-prod
+      - key: DATABASE_URL
+        fromDatabase:
+          name: remult-chat-svelte-summit-db
+          property: connectionString
+
+# all databases
+databases:
+  - name: remult-chat-svelte-summit-db
+    databaseName: main_db
+    region: frankfurt
+    plan: Free
+    postgresMajorVersion: 13
