@@ -5,7 +5,7 @@
 </script>
 
 <div class="container w-1/2 m-auto mt-4">
-  <h1 class="text-4xl text-primary">Welcome to Remult Chat</h1>
+  <h1 class="text-4xl text-primary mb-4">Welcome to Remult Chat</h1>
 
   <Buble />
   <Buble pos="right" />
