@@ -8,23 +8,32 @@ import { remult } from "remult";
 
 export const handleRemult = remultSveltekit({
   getUser: async (event) => {
-    const s = await event?.locals?.getSession();
+    if (DATABASE_URL) {
+      const s = await event?.locals?.getSession();
 
-    if (s && s.user) {
-      // TODO find my ID!
-      const uDb = await remult.repo(User).findFirst({ name: [s?.user?.name!] });
-      if (uDb) {
-        return {
-          id: uDb.id,
-          name: uDb.name,
-          avatar_url: uDb.avatar_url,
-        };
+      if (s && s.user) {
+        // TODO find my ID!
+        const uDb = await remult
+          .repo(User)
+          .findFirst({ name: [s?.user?.name!] });
+        if (uDb) {
+          return {
+            id: uDb.id,
+            name: uDb.name,
+            avatar_url: uDb.avatar_url,
+          };
+        }
       }
-    }
 
-    return undefined;
+      return undefined;
+    } else {
+      const uDb = await remult.repo(User).findFirst({ name: ["JYC"] });
+      return { id: uDb.id, name: uDb.name, avatar_url: uDb.avatar_url };
+    }
   },
-  dataProvider: createPostgresDataProvider({ connectionString: DATABASE_URL }),
+  dataProvider: DATABASE_URL
+    ? createPostgresDataProvider({ connectionString: DATABASE_URL })
+    : undefined,
   entities: [Message, User],
   controllers: [MessageController],
 });

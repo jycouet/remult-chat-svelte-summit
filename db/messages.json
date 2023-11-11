@@ -1,0 +1,68 @@
+[
+  {
+    "id": "hfv8xw9mv9tr0tdi5nph46s0",
+    "whoId": "wjlezjgqjhoavwetdq8zdrry",
+    "msg": "Hello 👋",
+    "createdAt": "2023-11-11T08:53:55.093Z"
+  },
+  {
+    "id": "t81oljk7xsaaivghdirqfkv8",
+    "whoId": "wjlezjgqjhoavwetdq8zdrr1",
+    "msg": "Hi !!!",
+    "createdAt": "2023-11-11T08:54:05.428Z"
+  },
+  {
+    "id": "g6k53hneueg50kc9zmd7efvl",
+    "whoId": "wjlezjgqjhoavwetdq8zdrry",
+    "msg": "So... Svelte 5? 🎉🎉🎉",
+    "createdAt": "2023-11-11T08:54:15.417Z"
+  },
+  {
+    "id": "onzrkv1g7fmkaadujs8w6j0j",
+    "whoId": "wjlezjgqjhoavwetdq8zdrr1",
+    "msg": "Hummm....",
+    "createdAt": "2023-11-11T08:54:19.866Z"
+  },
+  {
+    "id": "jy8aa3duh5iij766zmg01mh9",
+    "whoId": "wjlezjgqjhoavwetdq8zdrr2",
+    "msg": "What?!",
+    "createdAt": "2023-11-11T08:54:44.688Z"
+  },
+  {
+    "id": "sypln00gguo2xola2tcbdb6o",
+    "whoId": "wjlezjgqjhoavwetdq8zdrr4",
+    "msg": "Wait... We have still 5 hours 🙃",
+    "createdAt": "2023-11-11T08:55:11.552Z"
+  },
+  {
+    "id": "ldq8eewdaentqu5mojtxdhwg",
+    "whoId": "wjlezjgqjhoavwetdq8zdrr1",
+    "msg": "You will be ready?",
+    "createdAt": "2023-11-11T08:55:19.028Z"
+  },
+  {
+    "id": "j6jjpfltidc70wygmp7tc7aq",
+    "whoId": "wjlezjgqjhoavwetdq8zdrry",
+    "msg": "Sounds  great!!!",
+    "createdAt": "2023-11-11T08:55:25.099Z"
+  },
+  {
+    "id": "vqgg108qxtl0upffrpgfavkk",
+    "whoId": "wjlezjgqjhoavwetdq8zdrr4",
+    "msg": "Let's do it",
+    "createdAt": "2023-11-11T08:55:33.658Z"
+  },
+  {
+    "id": "dogj9n6lbddratbwmq79ggvj",
+    "whoId": "wjlezjgqjhoavwetdq8zdrr2",
+    "msg": "\"5.0.0-next.1\" is already out, we are all good 🥳",
+    "createdAt": "2023-11-11T08:56:38.338Z"
+  },
+  {
+    "id": "gl4z6cla6l0urms0uwrsnxv6",
+    "whoId": "wjlezjgqjhoavwetdq8zdrr3",
+    "msg": "See you at Svelte Summit 👋",
+    "createdAt": "2023-11-11T08:56:59.414Z"
+  }
+]

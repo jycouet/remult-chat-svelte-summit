@@ -5,6 +5,7 @@
   import { Message } from "../shared/Message";
   import { signOut } from "@auth/sveltekit/client";
   import { MessageController } from "../shared/MessageController";
+  import { dev } from "$app/environment";
 
   export let msg = "";
 
@@ -12,16 +13,20 @@
   let unSub: (() => void) | null = null;
 
   onMount(async () => {
-    // TODO Svelte issue
-    // messages = await remult.repo(Message).find({ include: { who: true } });
-    unSub = remult
-      .repo(Message)
-      .liveQuery({ include: { who: true } })
-      .subscribe(async (info) => {
-        messages = info.applyChanges(messages).sort((a, b) => {
-          return a.createdAt.getTime() < b.createdAt.getTime() ? 1 : -1;
+    // TODO Svelte issue https://github.com/sveltejs/kit/issues/11000 (SSEwill hang after 5 updates! restart the dev server)
+
+    if (dev) {
+      messages = await remult.repo(Message).find({ include: { who: true } });
+    } else {
+      unSub = remult
+        .repo(Message)
+        .liveQuery({ include: { who: true } })
+        .subscribe(async (info) => {
+          messages = info.applyChanges(messages).sort((a, b) => {
+            return a.createdAt.getTime() < b.createdAt.getTime() ? 1 : -1;
+          });
         });
-      });
+    }
   });
   onDestroy(() => {
     unSub && unSub();
@@ -34,7 +39,11 @@
 
   const send = async () => {
     try {
-      await MessageController.send(msg);
+      const result = await MessageController.send(msg);
+      // only iini dev because of SSE issue
+      if (dev) {
+        messages = [...messages, result];
+      }
       msg = "";
     } catch (error) {
       alert((error as { message: string }).message);

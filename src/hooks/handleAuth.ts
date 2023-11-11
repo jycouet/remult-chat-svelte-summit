@@ -7,6 +7,7 @@ import { handleRemult } from "./handleRemult";
 import type { Handle } from "@sveltejs/kit";
 import {
   AUTH_SECRET,
+  DATABASE_URL,
   GITHUB_CLIENT_ID,
   GITHUB_CLIENT_SECRET,
 } from "$env/static/private";
@@ -48,21 +49,32 @@ export const handleAuth: Handle = (event) => {
       session: async ({ session, token }) => {
         // console.log(`session`, session, token);
 
-        if (session.user?.name) {
-          let user = await remult
-            .repo(User)
-            .findFirst({ name: [String(session.user?.name)] });
-          return {
-            ...session,
-            user: {
-              id: user?.id,
-              name: user?.name,
-              avatar_url: user?.avatar_url,
-            },
-          };
-        }
+        if (DATABASE_URL) {
+          if (session.user?.name) {
+            let user = await remult
+              .repo(User)
+              .findFirst({ name: [String(session.user?.name)] });
+            return {
+              ...session,
+              user: {
+                id: user?.id,
+                name: user?.name,
+                avatar_url: user?.avatar_url,
+              },
+            };
+          }
 
-        return session;
+          return session;
+        }
+        return {
+          user: {
+            id: "wjlezjgqjhoavwetdq8zdrry",
+            name: "JYC",
+          },
+          expires: new Date(
+            Date.now() + 1000 * 60 * 60 * 24 * 365
+          ).toISOString(),
+        };
       },
     },
   })(event);
