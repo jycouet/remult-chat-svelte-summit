@@ -16,7 +16,7 @@
     "daisyui": "^3.9.4",
     "postcss": "^8.4.24",
     "postcss-load-config": "^4.0.1",
-    "remult": "^0.22.9",
+    "remult": "^0.23.0-exp.24",
     "svelte": "^4.0.5",
     "svelte-check": "^3.4.3",
     "tailwindcss": "^3.3.2",
@@ -24,5 +24,9 @@
     "typescript": "^5.0.0",
     "vite": "^4.4.2"
   },
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "@auth/core": "^0.18.1",
+    "@auth/sveltekit": "^0.3.12"
+  }
 }

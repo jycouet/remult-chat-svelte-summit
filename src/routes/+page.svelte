@@ -4,7 +4,7 @@
   import { remult } from "remult";
   import { onDestroy, onMount } from "svelte";
   import { Message } from "../shared/Message";
-  export let whoSend = "JYC";
+
   export let msg = "";
 
   let messages: Message[] = [];
@@ -25,33 +25,53 @@
 
   const send = async () => {
     try {
-      await remult.repo(Message).insert({ msg, who: whoSend });
+      await remult.repo(Message).insert({ msg, who: remult.user?.name });
       msg = "";
     } catch (error) {
       alert((error as { message: string }).message);
     }
   };
+  import { signOut } from "@auth/sveltekit/client";
 </script>
 
 <div class="flex flex-col w-full h-full">
   <div class="flex-initial divider" />
   <div class="flex-initial grid">
-    <div class="flex flex-col gap-4 md:flex-row">
+    <div class="flex gap-4" />
+
+    <div class="flex gap-4 items-center">
       <div class="avatar">
         <div class="w-12 rounded-full">
           <img
-            src="https://www.gravatar.com/avatar/{whoSend}?s=75&d=identicon"
-            alt="package"
+            src="https://www.gravatar.com/avatar/{remult.user
+              ?.name}?s=75&d=identicon"
+            alt="pic"
           />
         </div>
       </div>
-      <input
-        class="input input-bordered w-full"
-        placeholder="Who?"
-        bind:value={whoSend}
-      />
+      {#if remult.user}
+        <div class="text-primary">
+          {remult.user.name}
+        </div>
+
+        <button class="btn btn-ghost" type="button" on:click={() => signOut}
+          >SignOut</button
+        >
+        <!-- <input
+          class="input input-bordered w-full"
+          placeholder="Who?"
+          bind:value={whoSend}
+        /> -->
+      {:else}
+        <a
+          class="btn btn-primary"
+          href="/auth/signin"
+          data-sveltekit-preload-data="off">Sign in</a
+        >
+      {/if}
     </div>
-    <form on:submit={send}>
+
+    <form on:submit={send} class="flex gap-4">
       <input
         class="input input-bordered w-full"
         placeholder="Your message?"
@@ -72,7 +92,7 @@
           {msg}
           {who}
           {createdAt}
-          pos={whoSend === who ? "right" : "left"}
+          pos={remult.user?.name === who ? "right" : "left"}
         />
       {/each}
     </div>
