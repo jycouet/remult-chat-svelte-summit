@@ -16,11 +16,16 @@
     // messages = await remult.repo(Message).find({ include: { who: true } });
     unSub = remult
       .repo(Message)
-      .liveQuery({ include: { who: true } })
-      .subscribe((info) => {
-        messages = info.applyChanges(messages).sort((a, b) => {
-          return a.createdAt.getTime() < b.createdAt.getTime() ? 1 : -1;
-        });
+      // .liveQuery({ include: { who: true } })
+      .liveQuery()
+      .subscribe(async (info) => {
+        // let's do this for now has the include is in live Query?
+        messages = await remult.repo(Message).find({ include: { who: true } });
+        console.log(`messages`, messages);
+
+        // messages = info.applyChanges(messages).sort((a, b) => {
+        //   return a.createdAt.getTime() < b.createdAt.getTime() ? 1 : -1;
+        // });
       });
   });
   onDestroy(() => {
