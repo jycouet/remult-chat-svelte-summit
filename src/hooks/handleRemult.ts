@@ -7,18 +7,19 @@ import { createPostgresDataProvider } from "remult/postgres";
 import { remult } from "remult";
 
 export const handleRemult = remultSveltekit({
-  // @ts-ignore TODO
   getUser: async (event) => {
     const s = await event?.locals?.getSession();
 
-    // console.log(`s`, s);
     if (s && s.user) {
-      return {
-        id: s.user?.id,
-        name: s.user?.name,
-        // @ts-ignore
-        avatar_url: s.user?.image,
-      };
+      // TODO find my ID!
+      const uDb = await remult.repo(User).findFirst({ name: [s?.user?.name!] });
+      if (uDb) {
+        return {
+          id: uDb.id,
+          name: uDb.name,
+          avatar_url: uDb.avatar_url,
+        };
+      }
     }
 
     return undefined;
