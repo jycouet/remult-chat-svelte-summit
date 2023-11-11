@@ -16,8 +16,7 @@
     // messages = await remult.repo(Message).find({ include: { who: true } });
     unSub = remult
       .repo(Message)
-      // .liveQuery({ include: { who: true } })
-      .liveQuery()
+      .liveQuery({ include: { who: true } })
       .subscribe(async (info) => {
         messages = info.applyChanges(messages).sort((a, b) => {
           return a.createdAt.getTime() < b.createdAt.getTime() ? 1 : -1;
