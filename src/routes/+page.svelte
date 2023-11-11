@@ -62,6 +62,16 @@
           {remult.user.name}
         </div>
 
+        <span>
+          | Using
+          <a class="link link-secondary" href="https://kit.svelte.dev/"
+            >SvelteKit</a
+          >,
+          <a class="link link-secondary" href="https://remult.dev/">Remult</a>,
+          <a class="link link-secondary" href="https://daisyui.com/">DaisyUI</a>
+          |
+        </span>
+
         <button class="btn btn-ghost" type="button" on:click={() => logout()}
           >SignOut</button
         >
@@ -76,6 +86,16 @@
           href="/auth/signin"
           data-sveltekit-preload-data="off">Sign in</a
         >
+
+        <span>
+          | Using
+          <a class="link link-secondary" href="https://kit.svelte.dev/"
+            >SvelteKit</a
+          >,
+          <a class="link link-secondary" href="https://remult.dev/">Remult</a>,
+          <a class="link link-secondary" href="https://daisyui.com/">DaisyUI</a>
+          |
+        </span>
       {/if}
     </div>
 
