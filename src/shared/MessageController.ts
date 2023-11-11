@@ -4,6 +4,7 @@ import { Message } from "./Message";
 export class MessageController {
   @BackendMethod({ allowed: Allow.authenticated })
   static async send(msg: string) {
-    await remult.repo(Message).insert({ msg, who: remult.user?.id });
+    // insert the message of the user
+    await remult.repo(Message).insert({ msg, whoId: remult.user?.id });
   }
 }

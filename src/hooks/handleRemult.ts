@@ -24,18 +24,6 @@ export const handleRemult = remultSveltekit({
 
     return undefined;
   },
-  initRequest: async (event) => {
-    const s = await event?.locals?.getSession();
-
-    if (s && s.user) {
-      remult.user = {
-        id: s.user?.id,
-        name: s.user?.name!,
-        // @ts-ignore
-        avatar_url: s.user?.image,
-      };
-    }
-  },
   dataProvider: createPostgresDataProvider({ connectionString: DATABASE_URL }),
   entities: [Message, User],
   controllers: [MessageController],

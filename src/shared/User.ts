@@ -1,14 +1,16 @@
 import { Entity, Fields } from "remult";
 
-@Entity("users", {})
+@Entity("users", {
+  allowApiRead: true,
+})
 export class User {
-  @Fields.cuid()
+  @Fields.cuid({ includeInApi: false })
   id = "";
 
   @Fields.string()
   name = "";
 
-  @Fields.number()
+  @Fields.number({ includeInApi: false })
   github_id = 0;
 
   @Fields.string()

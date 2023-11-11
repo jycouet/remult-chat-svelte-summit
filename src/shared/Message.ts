@@ -1,9 +1,9 @@
-import { Allow, Entity, Fields, Relations } from "remult";
+import { Entity, Fields, Relations } from "remult";
 import { User } from "./User";
 
 @Entity<Message>("messages", {
   // allowApiCrud: true,
-  allowApiRead: Allow.everyone,
+  allowApiRead: true,
   defaultOrderBy: {
     createdAt: "desc",
   },

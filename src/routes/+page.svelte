@@ -13,13 +13,13 @@
 
   onMount(async () => {
     // TODO Svelte issue
-    messages = await remult.repo(Message).find({ include: { who: true } });
-    // unSub = remult
-    //   .repo(Message)
-    //   .liveQuery()
-    //   .subscribe((info) => {
-    //     messages = info.applyChanges(messages);
-    //   });
+    // messages = await remult.repo(Message).find({ include: { who: true } });
+    unSub = remult
+      .repo(Message)
+      .liveQuery({ orderBy: { createdAt: "desc" }, include: { who: true } })
+      .subscribe((info) => {
+        messages = info.applyChanges(messages);
+      });
   });
   onDestroy(() => {
     unSub && unSub();
@@ -94,9 +94,9 @@
       {#each messages as { msg, who, createdAt }}
         <Buble
           {msg}
-          who={who.name}
+          who={who?.name}
           {createdAt}
-          pos={remult.user?.name === who ? "right" : "left"}
+          pos={remult.user?.name === who?.name ? "right" : "left"}
         />
       {/each}
     </div>

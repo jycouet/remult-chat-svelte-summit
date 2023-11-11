@@ -44,5 +44,26 @@ export const handleAuth: Handle = (event) => {
         },
       }),
     ],
+    callbacks: {
+      session: async ({ session, token }) => {
+        // console.log(`session`, session, token);
+
+        if (session.user?.name) {
+          let user = await remult
+            .repo(User)
+            .findFirst({ name: [String(session.user?.name)] });
+          return {
+            ...session,
+            user: {
+              id: user?.id,
+              name: user?.name,
+              avatar_url: user?.avatar_url,
+            },
+          };
+        }
+
+        return session;
+      },
+    },
   })(event);
 };

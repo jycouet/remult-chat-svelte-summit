@@ -7,9 +7,12 @@
     "build": "vite build",
     "preview": "vite preview",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
-    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
+    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+    "start": "node -r dotenv/config build"
   },
   "devDependencies": {
+    "@auth/core": "^0.18.1",
+    "@auth/sveltekit": "^0.3.12",
     "@sveltejs/adapter-auto": "^2.0.0",
     "@sveltejs/kit": "^1.20.4",
     "autoprefixer": "^10.4.14",
@@ -27,7 +30,6 @@
   },
   "type": "module",
   "dependencies": {
-    "@auth/core": "^0.18.1",
-    "@auth/sveltekit": "^0.3.12"
+    "dotenv": "^16.3.1"
   }
 }
