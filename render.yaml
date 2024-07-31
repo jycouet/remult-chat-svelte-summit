@@ -1,18 +1,27 @@
+# More info at: https://docs.render.com/blueprint-spec#service-fields
+
 # all services
 services:
-  - type: web
-    name: remult-chat-svelte-summit
-    env: node
-    repo: https://github.com/jycouet/remult-chat-svelte-summit
+  - name: remult-chat-svelte-summit
+    type: web
+    runtime: node
+    # repo: https://github.com/jycouet/remult-chat-svelte-summit
+    # branch: main
     region: frankfurt
-    plan: Free
-    branch: main
+    plan: free
     buildCommand: npm i -g pnpm@8.6.5; pnpm install --production=false; pnpm build
     startCommand: pnpm start
-    numInstances: 1
-    #  healthCheckPath: /api/healthz
+    # numInstances: 1
+    # healthCheckPath: /api/healthz
+    # buildFilter:                           # In mono repo context, build only if some change happend
+    #   paths:
+    #    - apps/MY_APP/**
+    #    - packages/**
+    #    - render.yaml
     envVars:
+      # Link one or more "env group" defined in https://dashboard.render.com/env-groups
       - fromGroup: remult-chat-svelte-summit
+      # Some static envs
       - key: NODE_VERSION
         value: 18.16.0
       - key: TZ
@@ -21,6 +30,7 @@ services:
         value: production
       - key: ORIGIN
         value: https://remult-chat-svelte-summit.onrender.com
+      # Other Service env
       - key: DATABASE_URL
         fromDatabase:
           name: remult-chat-svelte-summit-db
@@ -31,5 +41,5 @@ databases:
   - name: remult-chat-svelte-summit-db
     databaseName: main_db
     region: frankfurt
-    plan: Free
-    postgresMajorVersion: 13
+    plan: free
+    # postgresMajorVersion: 13               # Default: most recent supported version
