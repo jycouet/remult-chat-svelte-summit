@@ -1,4 +1,10 @@
-# More info at: https://docs.render.com/blueprint-spec#service-fields
+# 1/ Create a https://render.com account
+# 2/ Add this render.yaml file to your repo at the root
+# 3/ Tweak settings to your needs (here replace "remult-chat-svelte-summit" with your app name (it's used at multiple places))
+# 4/ Publish your git repo on github (other integration are available, but now I wanna stick to GH)
+# 5/ Create a new "Blueprint" on render to read this config & sync everything. Here is the link: https://dashboard.render.com/blueprints (You need to connect with Github and allow render on the repo)
+# 6/ Once created, everything should spin up, you need to wait... and then enjoy 🥳🥳🥳
+# */ All options on: https://docs.render.com/blueprint-spec#service-fields
 
 # all services
 services:
