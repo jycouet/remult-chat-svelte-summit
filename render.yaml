@@ -11,13 +11,15 @@ services:
     plan: free
     buildCommand: npm i -g pnpm@8.6.5; pnpm install --production=false; pnpm build
     startCommand: pnpm start
-    # numInstances: 1
-    # healthCheckPath: /api/healthz
+    # healthCheckPath: /api/healthz          # For 0 Downtime deploy
     # buildFilter:                           # In mono repo context, build only if some change happend
     #   paths:
     #    - apps/MY_APP/**
     #    - packages/**
     #    - render.yaml
+    # domains:                               # Custom domains
+    #  - example.com
+    #  - www.example.org
     envVars:
       # Link one or more "env group" defined in https://dashboard.render.com/env-groups
       - fromGroup: remult-chat-svelte-summit
